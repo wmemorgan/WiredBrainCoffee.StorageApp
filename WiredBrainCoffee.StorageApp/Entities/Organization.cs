@@ -6,9 +6,4 @@
 
         public override string ToString() => $"Id: {Id}, Name: {Name}";
     }
-
-    public class EntityBase
-    {
-        public int Id { get; set; }
-    }
 }
