@@ -2,11 +2,11 @@
 
 namespace WiredBrainCoffee.StorageApp.Repositories
 {
-    public class GenericRepository<T> where T : EntityBase
+    public class GenericRepository<T> where T : class, IEntity
     {
         private readonly List<T> _items = new();
 
-        public T GetById(int id) => _items.Single(item => item.Id == id);
+        public T? GetById(int id) => _items.Single(item => item.Id == id);
 
         public void Add(T item)
         {
