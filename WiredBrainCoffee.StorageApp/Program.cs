@@ -6,18 +6,32 @@ using WiredBrainCoffee.StorageApp.Repositories;
 SqlRepository<Employee> employeeRepository = new(new StorageAppDbContext());
 AddEmployees(employeeRepository);
 GetEmployeeById(employeeRepository);
+WriteAllToConsole(employeeRepository);
+
+ListRepository<Organization> organizationRepository = new();
+AddOrganizations(organizationRepository);
+WriteAllToConsole(organizationRepository);
+
+IReadRepository<object> repo = new ListRepository<Organization>();
+
+Console.ReadLine();
+
+
+void WriteAllToConsole(IReadRepository<IEntity> repository)
+{
+    IEnumerable<IEntity> items = repository.GetAll();
+
+    foreach (var item in items)
+    {
+        Console.WriteLine(item);
+    }
+}
 
 void GetEmployeeById(IRepository<Employee> employeeRepository)
 {
     var employee = employeeRepository.GetById(2);
     Console.WriteLine($"Employee with Id 2: {employee.FirstName}");
 }
-
-ListRepository<Organization> organizationRepository = new();
-
-AddOrganizations(organizationRepository);
-
-Console.ReadLine();
 
 static void AddEmployees(IRepository<Employee> employeeRepository)
 {

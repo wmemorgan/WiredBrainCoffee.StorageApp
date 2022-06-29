@@ -14,7 +14,12 @@ namespace WiredBrainCoffee.StorageApp.Repositories
             _dbSet = _dBContext.Set<T>();
         }
 
-        public T? GetById(int id) => _dbSet.Find(id);
+        public IEnumerable<T> GetAll()
+        {
+            return _dbSet.ToList();
+        }
+
+        public T GetById(int id) => _dbSet.Find(id);
 
 
         public void Add(T item) => _dbSet.Add(item);
