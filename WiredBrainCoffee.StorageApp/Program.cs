@@ -5,8 +5,12 @@ using WiredBrainCoffee.StorageApp.Repositories;
 
 SqlRepository<Employee> employeeRepository = new(new StorageAppDbContext());
 AddEmployees(employeeRepository);
+AddManagers(employeeRepository);
 GetEmployeeById(employeeRepository);
 WriteAllToConsole(employeeRepository);
+
+IWriteRepository<Manager> repo = new SqlRepository<Employee>(new StorageAppDbContext());
+repo.Add(new Manager());
 
 ListRepository<Organization> organizationRepository = new();
 AddOrganizations(organizationRepository);
@@ -39,9 +43,17 @@ static void AddEmployees(IRepository<Employee> employeeRepository)
     employeeRepository.Save();
 }
 
+void AddManagers(IRepository<Manager> managerRepository)
+{
+    managerRepository.Add(new Manager { FirstName = "Sara" });
+    managerRepository.Add(new Manager { FirstName = "Henry" });
+    managerRepository.Save();
+}
+
 static void AddOrganizations(IRepository<Organization> organizationRepository)
 {
     organizationRepository.Add(new Organization { Name = "Pluralsight" });
     organizationRepository.Add(new Organization { Name = "Globomatics" });
     organizationRepository.Save();
 }
+
