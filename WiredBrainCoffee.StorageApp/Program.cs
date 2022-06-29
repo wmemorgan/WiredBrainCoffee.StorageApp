@@ -12,8 +12,6 @@ ListRepository<Organization> organizationRepository = new();
 AddOrganizations(organizationRepository);
 WriteAllToConsole(organizationRepository);
 
-IReadRepository<object> repo = new ListRepository<Organization>();
-
 Console.ReadLine();
 
 
