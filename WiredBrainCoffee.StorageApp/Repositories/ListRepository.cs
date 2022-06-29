@@ -2,13 +2,11 @@
 
 namespace WiredBrainCoffee.StorageApp.Repositories
 {
-    public class GenericRepository<T> where T : class, IEntity, new() //must be last constraint declared
+    public class ListRepository<T> : IRepository<T> where T : IEntity
     {
         private readonly List<T> _items = new();
 
-        public T? GetById(int id) => _items.Single(item => item.Id == id);
-
-        public T CreateItem() => new T();
+        public T GetById(int id) => _items.Single(item => item.Id == id);
 
         public void Add(T item)
         {
