@@ -1,24 +1,25 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using WiredBrainCoffee.StorageApp.Data;
 using WiredBrainCoffee.StorageApp.Entities;
 using WiredBrainCoffee.StorageApp.Repositories;
 
-GenericRepository<Employee> employeeRepository = new();
+SqlRepository<Employee> employeeRepository = new(new StorageAppDbContext());
 AddEmployees(employeeRepository);
 GetEmployeeById(employeeRepository);
 
-void GetEmployeeById(GenericRepository<Employee> employeeRepository)
+void GetEmployeeById(IRepository<Employee> employeeRepository)
 {
     var employee = employeeRepository.GetById(2);
     Console.WriteLine($"Employee with Id 2: {employee.FirstName}");
 }
 
-GenericRepository<Organization> organizationRepository = new();
+ListRepository<Organization> organizationRepository = new();
 
 AddOrganizations(organizationRepository);
 
 Console.ReadLine();
 
-static void AddEmployees(GenericRepository<Employee> employeeRepository)
+static void AddEmployees(IRepository<Employee> employeeRepository)
 {
     employeeRepository.Add(new Employee { FirstName = "Julia" });
     employeeRepository.Add(new Employee { FirstName = "Anna" });
@@ -26,7 +27,7 @@ static void AddEmployees(GenericRepository<Employee> employeeRepository)
     employeeRepository.Save();
 }
 
-static void AddOrganizations(GenericRepository<Organization> organizationRepository)
+static void AddOrganizations(IRepository<Organization> organizationRepository)
 {
     organizationRepository.Add(new Organization { Name = "Pluralsight" });
     organizationRepository.Add(new Organization { Name = "Globomatics" });
