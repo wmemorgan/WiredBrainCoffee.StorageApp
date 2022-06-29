@@ -43,7 +43,7 @@ static void AddEmployees(IRepository<Employee> employeeRepository)
     employeeRepository.Save();
 }
 
-void AddManagers(IRepository<Manager> managerRepository)
+void AddManagers(IWriteRepository<Manager> managerRepository)
 {
     managerRepository.Add(new Manager { FirstName = "Sara" });
     managerRepository.Add(new Manager { FirstName = "Henry" });
