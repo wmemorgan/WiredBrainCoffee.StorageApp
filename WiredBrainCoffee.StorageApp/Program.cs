@@ -47,7 +47,16 @@ static void AddEmployees(IRepository<Employee> employeeRepository)
 
 void AddManagers(IWriteRepository<Manager> managerRepository)
 {
-    managerRepository.Add(new Manager { FirstName = "Sara" });
+    var saraManager = new Manager { FirstName = "Sara" };
+    var saraManagerCopy = saraManager.Copy();
+    managerRepository.Add(saraManager);
+
+    if(saraManagerCopy is not null)
+    {
+        saraManagerCopy.FirstName += "_Copy";
+        managerRepository.Add(saraManagerCopy);
+    }
+
     managerRepository.Add(new Manager { FirstName = "Henry" });
     managerRepository.Save();
 }
