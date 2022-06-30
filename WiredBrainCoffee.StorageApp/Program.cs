@@ -42,7 +42,7 @@ static void AddEmployees(IRepository<Employee> employeeRepository)
         new Employee { FirstName = "Anna" },
         new Employee { FirstName = "Thomas" }
     };
-    AddBatch(employeeRepository, employees);
+    employeeRepository.AddBatch(employees);
 }
 
 void AddManagers(IWriteRepository<Manager> managerRepository)
@@ -59,14 +59,5 @@ static void AddOrganizations(IRepository<Organization> organizationRepository)
         new Organization { Name = "Pluralsight" },
         new Organization { Name = "Globomatics" }
     };
-    AddBatch(organizationRepository, organizations);
-}
-
-static void AddBatch<T>(IWriteRepository<T> repository, T[] items)
-{
-    foreach (var item in items)
-    {
-        repository.Add(item);
-    }
-    repository.Save();
+    organizationRepository.AddBatch(organizations);
 }
