@@ -18,7 +18,6 @@ WriteAllToConsole(organizationRepository);
 
 Console.ReadLine();
 
-
 void WriteAllToConsole(IReadRepository<IEntity> repository)
 {
     IEnumerable<IEntity> items = repository.GetAll();
@@ -37,10 +36,13 @@ void GetEmployeeById(IRepository<Employee> employeeRepository)
 
 static void AddEmployees(IRepository<Employee> employeeRepository)
 {
-    employeeRepository.Add(new Employee { FirstName = "Julia" });
-    employeeRepository.Add(new Employee { FirstName = "Anna" });
-    employeeRepository.Add(new Employee { FirstName = "Thomas" });
-    employeeRepository.Save();
+    var employees = new[]
+    {
+        new Employee { FirstName = "Julia" },
+        new Employee { FirstName = "Anna" },
+        new Employee { FirstName = "Thomas" }
+    };
+    AddBatch(employeeRepository, employees);
 }
 
 void AddManagers(IWriteRepository<Manager> managerRepository)
@@ -60,12 +62,11 @@ static void AddOrganizations(IRepository<Organization> organizationRepository)
     AddBatch(organizationRepository, organizations);
 }
 
-static void AddBatch(IRepository<Organization> organizationRepository, 
-    Organization[] organizations)
+static void AddBatch<T>(IWriteRepository<T> repository, T[] items)
 {
-    foreach (var item in organizations)
+    foreach (var item in items)
     {
-        organizationRepository.Add(item);
+        repository.Add(item);
     }
-    organizationRepository.Save();
+    repository.Save();
 }
