@@ -52,8 +52,20 @@ void AddManagers(IWriteRepository<Manager> managerRepository)
 
 static void AddOrganizations(IRepository<Organization> organizationRepository)
 {
-    organizationRepository.Add(new Organization { Name = "Pluralsight" });
-    organizationRepository.Add(new Organization { Name = "Globomatics" });
-    organizationRepository.Save();
+    var organizations = new[]
+    {
+        new Organization { Name = "Pluralsight" },
+        new Organization { Name = "Globomatics" }
+    };
+    AddBatch(organizationRepository, organizations);
 }
 
+static void AddBatch(IRepository<Organization> organizationRepository, 
+    Organization[] organizations)
+{
+    foreach (var item in organizations)
+    {
+        organizationRepository.Add(item);
+    }
+    organizationRepository.Save();
+}
