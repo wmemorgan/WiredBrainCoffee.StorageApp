@@ -5,6 +5,10 @@ using WiredBrainCoffee.StorageApp.Repositories;
 
 ItemAdded<Employee> itemAdded = new(EmployeeAdded);
 SqlRepository<Employee> employeeRepository = new(new StorageAppDbContext(), itemAdded);
+
+ItemAdded<Manager> managerAdded = itemAdded;
+
+
 AddEmployees(employeeRepository);
 AddManagers(employeeRepository);
 GetEmployeeById(employeeRepository);
