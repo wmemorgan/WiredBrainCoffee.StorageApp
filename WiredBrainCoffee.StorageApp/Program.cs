@@ -3,7 +3,7 @@ using WiredBrainCoffee.StorageApp.Data;
 using WiredBrainCoffee.StorageApp.Entities;
 using WiredBrainCoffee.StorageApp.Repositories;
 
-ItemAdded itemAdded = new(EmployeeAdded);
+ItemAdded<Employee> itemAdded = new(EmployeeAdded);
 SqlRepository<Employee> employeeRepository = new(new StorageAppDbContext(), itemAdded);
 AddEmployees(employeeRepository);
 AddManagers(employeeRepository);
@@ -20,9 +20,8 @@ WriteAllToConsole(organizationRepository);
 Console.ReadLine();
 
 
-void EmployeeAdded(object item)
+void EmployeeAdded(Employee employee)
 {
-    var employee = item as Employee;
     Console.WriteLine($"Employee added => {employee.FirstName}");
 }
 
